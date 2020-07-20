@@ -88,6 +88,8 @@ interface WrappableFunction<T> {
 interface CachedFunctionInterface<T> {
   (...args): Promise<T | undefined>;
   delete(...args): Promise<void>;
+  __remoteCache: Remote<T>;
+  __localCache: Local<T>;
 }
 
 interface OverrideConfigInterface<T> {
@@ -154,12 +156,12 @@ export class TransparentCache {
    * @param {any} that
    * @returns {Promise<CachedFunctionInterface<T>>}
    */
-  async wrap<T>(
+  wrap<T>(
     functionToWrap: WrappableFunction<T>,
-    overrideConfig: OverrideConfigInterface<T>,
+    overrideConfig: OverrideConfigInterface<T> = {},
     functionId = null,
     that = null
-  ): Promise<CachedFunctionInterface<T>> {
+  ): CachedFunctionInterface<T> {
     const internalFunctionId: string = (typeof functionId === 'string' && functionId) || functionToWrap.name;
 
     if (!internalFunctionId) {
@@ -174,24 +176,27 @@ export class TransparentCache {
     const cacheFunction = async (...args): Promise<T | undefined> => {
       const key = internalFunctionId + (args && stringify(args));
 
-      log.debug(`get value for key ${key}`);
+      log(`get value for key ${key}`);
 
       let value = await localCache.get(key);
 
       if (typeof value === 'undefined') {
         value = await remoteCache.get(key);
+
+        if (typeof value !== 'undefined') {
+          log('Found value in remote cache');
+          await localCache.setpx(key, value);
+        }
       } else {
         log('Found value in local cache');
       }
 
       if (typeof value === 'undefined') {
         value = await Bluebird.try(() => functionToWrap.apply(that, args)).catch(handleServiceError(functionId));
+        log('Got value from service');
         if (typeof value !== 'undefined') {
           await TransparentCache.updateCaches<T>(remoteCache, localCache)(key, value);
         }
-      } else {
-        log('Found value in remote cache');
-        await localCache.setpx(key, value);
       }
 
       if (typeof value !== 'undefined') {
@@ -209,6 +214,9 @@ export class TransparentCache {
       const deleteKey = internalFunctionId + (args && stringify(args));
       await TransparentCache.deleteCaches<T>(remoteCache, localCache)(deleteKey);
     };
+
+    cacheFunction.__remoteCache = remoteCache;
+    cacheFunction.__localCache = localCache;
 
     return cacheFunction;
   }
@@ -246,14 +254,14 @@ export class TransparentCache {
    *
    * @param {Remote<T>} remoteCache
    * @param {Local<T>} localCache
-   * @returns {(key: string, functionToWrap, functionId: string, that, args) => Promise<void>}
+   * @returns {Function}
    */
   static checkAndRefreshCaches<T>(
     remoteCache: Remote<T>,
     localCache: Local<T>
   ): (key: string, functionToWrap, functionId: string, that, args) => Promise<void> {
     return async (key: string, functionToWrap: WrappableFunction<T>, functionId: string, that, args) => {
-      log.debug(`checkBuffer ${key}`);
+      log(`checkBuffer ${key}`);
 
       const pttlMs = await remoteCache.pttl(key);
       const minTimeRemainingMs = remoteCache.config.ttlMs - localCache.config.ttlMs;
@@ -261,7 +269,7 @@ export class TransparentCache {
       log(`TTL: ${pttlMs} Remote TTL: ${remoteCache.config.ttlMs} Local TTL: ${localCache.config.ttlMs} Min Time Remaining: ${minTimeRemainingMs}`);
 
       if (!pttlMs || pttlMs < minTimeRemainingMs) {
-        log.debug('TTL requires cache refresh.');
+        log('TTL requires cache refresh.');
 
         const value = await Bluebird.try(() => functionToWrap.apply(that, args)).catch(handleServiceError(functionId));
 
@@ -269,7 +277,7 @@ export class TransparentCache {
           await TransparentCache.updateCaches<T>(remoteCache, localCache)(key, value);
         }
       }
-      log.debug('No cache refresh required');
+      log('No cache refresh required');
     };
   }
 }

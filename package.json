@@ -15,8 +15,7 @@
     "bluebird": "^3.7.2",
     "debug": "^4.1.1",
     "fast-json-stable-stringify": "^2.1.0",
-    "lru-cache": "^6.0.0",
-    "uuid": "^8.2.0"
+    "lru-cache": "^6.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^9.1.1",
@@ -29,6 +28,8 @@
     "@types/fast-json-stable-stringify": "^2.0.0",
     "@types/ioredis": "^4.17.2",
     "@types/lru-cache": "^5.1.0",
+    "@types/mocha": "^8.0.0",
+    "@types/sinon": "^9.0.4",
     "@types/uuid": "^8.0.0",
     "@typescript-eslint/eslint-plugin": "^3.6.1",
     "@typescript-eslint/parser": "^3.6.1",
@@ -51,7 +52,10 @@
     "prettier": "^2.0.5",
     "prettier-eslint-cli": "^5.0.0",
     "sinon": "^9.0.2",
-    "typescript": "^3.9.7"
+    "source-map-support": "^0.5.19",
+    "ts-node": "^8.10.1",
+    "typescript": "^3.9.7",
+    "uuid": "^8.2.0"
   },
   "files": [
     "dist/**/*.{js,ts,tsbuildinfo}",
@@ -94,7 +98,10 @@
   "scripts": {
     "beta": "npm version prerelease && npm publish",
     "build": "rm -rf ./dist && tsc -p tsconfig.build.json",
-    "integration": "nyc mocha --recursive -r source-map-support/register -r ts-node/register -r tsconfig-paths/register --use_strict --exit \"tests/**/*.it.+(ts|js)\"",
+    "docker:down": "COMPOSE_PROJECT_NAME=local docker-compose down --remove-orphans",
+    "docker:restart": "npm run docker:down && npm run docker:up",
+    "docker:up": "COMPOSE_PROJECT_NAME=local docker-compose up -d",
+    "integration": "npm run docker:up && nyc mocha --recursive -r source-map-support/register -r ts-node/register -r tsconfig-paths/register --use_strict --exit \"tests/**/*.it.+(ts|js)\"",
     "lint": "fixpack && prettier-eslint --write && eslint --fix \"**/*.{js,ts}\"",
     "major": "npm version major && npm publish",
     "minor": "npm version minor && npm publish",
@@ -103,7 +110,7 @@
     "prepare": "fixpack",
     "prepublishOnly": "npm run build",
     "preversion": "npm run lint && npm run test",
-    "test": "nyc mocha --recursive -r source-map-support/register -r ts-node/register -r tsconfig-paths/register --use_strict --exit \"tests/**/*.+(unit|it).+(ts|js)\"",
+    "test": "npm run docker:up && nyc mocha --recursive -r source-map-support/register -r ts-node/register -r tsconfig-paths/register --use_strict --exit \"tests/**/*.+(unit|it).+(ts|js)\"",
     "unit": "nyc mocha --recursive -r source-map-support/register -r ts-node/register -r tsconfig-paths/register --use_strict --exit \"tests/**/*.unit.+(ts|js)\""
   },
   "types": "dist/index.d.ts"

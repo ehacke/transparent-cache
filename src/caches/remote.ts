@@ -34,7 +34,9 @@ export class Remote<T> implements CacheInterface<Redis, T> {
     try {
       return Bluebird.try(() => action())
         .timeout(this.config.commandTimeoutMs)
-        .catch((error) => log(`Error during remote '${action}'. Error: ${error}`));
+        .catch((error) => {
+          log(`Error during remote '${action}'. Error: ${error}`);
+        });
     } catch {
       return Promise.resolve(null);
     }
