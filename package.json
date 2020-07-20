@@ -1,22 +1,15 @@
 {
   "name": "transparent-cache",
-  "version": "0.0.1",
   "description": "Simple transparent caching for Node. Wrap a function and then call it like normal",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "version": "0.0.1",
+  "author": "Eric Hackee",
+  "bugs": {
+    "url": "https://github.com/ehacke/transparent-cache/issues"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ehacke/transparent-cache.git"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged"
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
     }
-  },
-  "peerDependencies": {
-    "ioredis": "^4.17.3"
   },
   "dependencies": {
     "bluebird": "^3.7.2",
@@ -64,20 +57,54 @@
     "dist/**/*.{js,ts,tsbuildinfo}",
     "docs/**/*.*"
   ],
-  "main": "dist/index.js",
+  "homepage": "https://github.com/ehacke/transparent-cache#readme",
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
+  },
   "keywords": [
-    "cache",
-    "transparent",
     "asserted",
+    "cache",
+    "ioredis",
+    "lru",
     "node",
     "redis",
-    "ioredis",
-    "lru"
+    "transparent"
   ],
-  "author": "Eric Hackee",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/ehacke/transparent-cache/issues"
+  "lint-staged": {
+    "package.json": [
+      "fixpack"
+    ],
+    "*.{js,ts}": [
+      "prettier-eslint --write",
+      "eslint --fix"
+    ]
   },
-  "homepage": "https://github.com/ehacke/transparent-cache#readme"
+  "main": "dist/index.js",
+  "peerDependencies": {
+    "ioredis": "^4.17.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ehacke/transparent-cache.git"
+  },
+  "scripts": {
+    "beta": "npm version prerelease && npm publish",
+    "build": "rm -rf ./dist && tsc -p tsconfig.build.json",
+    "integration": "nyc mocha --recursive -r source-map-support/register -r ts-node/register -r tsconfig-paths/register --use_strict --exit \"tests/**/*.it.+(ts|js)\"",
+    "lint": "fixpack && prettier-eslint --write && eslint --fix \"**/*.{js,ts}\"",
+    "major": "npm version major && npm publish",
+    "minor": "npm version minor && npm publish",
+    "patch": "npm version patch && npm publish",
+    "postpublish": "git push",
+    "prepare": "fixpack",
+    "prepublishOnly": "npm run build",
+    "preversion": "npm run lint && npm run test",
+    "test": "nyc mocha --recursive -r source-map-support/register -r ts-node/register -r tsconfig-paths/register --use_strict --exit \"tests/**/*.+(unit|it).+(ts|js)\"",
+    "unit": "nyc mocha --recursive -r source-map-support/register -r ts-node/register -r tsconfig-paths/register --use_strict --exit \"tests/**/*.unit.+(ts|js)\""
+  },
+  "types": "dist/index.d.ts"
 }

@@ -7,6 +7,8 @@ module.exports = {
     'jsdoc/check-param-names': 'off',
     'lodash/prefer-is-nil': 'off',
     'lodash/prefer-lodash-typecheck': 'off',
+    'no-console': 'off',
+    'sonarjs/cognitive-complexity': 'off',
     'unicorn/expiring-todo-comments': 'error',
   },
   settings: {
