@@ -1,0 +1,83 @@
+{
+  "name": "transparent-cache",
+  "version": "0.0.1",
+  "description": "Simple transparent caching for Node. Wrap a function and then call it like normal",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ehacke/transparent-cache.git"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "peerDependencies": {
+    "ioredis": "^4.17.3"
+  },
+  "dependencies": {
+    "bluebird": "^3.7.2",
+    "debug": "^4.1.1",
+    "fast-json-stable-stringify": "^2.1.0",
+    "lru-cache": "^6.0.0",
+    "uuid": "^8.2.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^9.1.1",
+    "@commitlint/config-conventional": "^9.1.1",
+    "@ehacke/commitlint-config": "^1.0.3",
+    "@ehacke/eslint-config": "^1.1.6",
+    "@ehacke/prettier-config": "^1.0.2",
+    "@istanbuljs/nyc-config-typescript": "^1.0.1",
+    "@types/bluebird": "^3.5.32",
+    "@types/fast-json-stable-stringify": "^2.0.0",
+    "@types/ioredis": "^4.17.2",
+    "@types/lru-cache": "^5.1.0",
+    "@types/uuid": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^3.6.1",
+    "@typescript-eslint/parser": "^3.6.1",
+    "chai": "^4.2.0",
+    "commitizen": "^4.1.2",
+    "commitlint": "^9.1.0",
+    "cz-conventional-changelog": "^3.2.0",
+    "dotenv": "^8.2.0",
+    "eslint": "^7.5.0",
+    "eslint-import-resolver-typescript": "^2.0.0",
+    "eslint-plugin-simple-import-sort": "^5.0.3",
+    "fixpack": "^3.0.5",
+    "fs-extra": "^9.0.1",
+    "getenv": "^1.0.0",
+    "husky": "^4.2.5",
+    "ioredis": "^4.17.3",
+    "lint-staged": "^10.2.10",
+    "mocha": "^8.0.1",
+    "nyc": "^15.1.0",
+    "prettier": "^2.0.5",
+    "prettier-eslint-cli": "^5.0.0",
+    "sinon": "^9.0.2",
+    "typescript": "^3.9.7"
+  },
+  "files": [
+    "dist/**/*.{js,ts,tsbuildinfo}",
+    "docs/**/*.*"
+  ],
+  "main": "dist/index.js",
+  "keywords": [
+    "cache",
+    "transparent",
+    "asserted",
+    "node",
+    "redis",
+    "ioredis",
+    "lru"
+  ],
+  "author": "Eric Hackee",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ehacke/transparent-cache/issues"
+  },
+  "homepage": "https://github.com/ehacke/transparent-cache#readme"
+}
