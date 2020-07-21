@@ -1,5 +1,5 @@
 {
-  "name": "transparent-cache",
+  "name": "@ehacke/transparent-cache",
   "description": "Simple transparent caching for Node. Wrap a function and then call it like normal",
   "version": "0.0.2",
   "author": "Eric Hackee",

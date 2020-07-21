@@ -30,12 +30,12 @@ const CONSTANTS = {
     LOCAL: {
       size: 1000,
       // eslint-disable-next-line no-magic-numbers
-      ttlMs: 1000 * 60,
+      ttlMs: 1000 * 30,
     },
     REMOTE: {
       size: 10000,
       // eslint-disable-next-line no-magic-numbers
-      ttlMs: 1000 * 60 * 5,
+      ttlMs: 1000 * 60 * 10,
       commandTimeoutMs: 50,
     },
   },
