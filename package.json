@@ -2,7 +2,7 @@
   "name": "@ehacke/transparent-cache",
   "description": "Simple transparent caching for Node. Wrap a function and then call it like normal",
   "version": "0.0.3",
-  "author": "Eric Hackee",
+  "author": "Eric Hacke",
   "bugs": {
     "url": "https://github.com/ehacke/transparent-cache/issues"
   },
@@ -86,7 +86,7 @@
       "eslint --fix"
     ]
   },
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
   "peerDependencies": {
     "ioredis": "^4.17.3"
   },
@@ -96,7 +96,7 @@
   },
   "scripts": {
     "beta": "npm version prerelease && npm publish",
-    "build": "rm -rf ./dist && tsc -p tsconfig.build.json",
+    "build": "rm -rf ./dist && tsc -p tsconfig.build.json && sed -i 's/\"files\":/\"_files\":/' dist/package.json",
     "ci-test": "nyc mocha --recursive -r source-map-support/register -r ts-node/register -r tsconfig-paths/register --use_strict --exit \"tests/**/*.+(unit|it).+(ts|js)\"",
     "docker:down": "COMPOSE_PROJECT_NAME=local docker-compose down --remove-orphans",
     "docker:restart": "npm run docker:down && npm run docker:up",
@@ -107,11 +107,10 @@
     "minor": "npm version minor && npm publish",
     "patch": "npm version patch && npm publish",
     "postpublish": "git push",
-    "prepare": "fixpack",
     "prepublishOnly": "npm run build",
     "preversion": "npm run lint && npm run test",
     "test": "npm run docker:up && nyc mocha --recursive -r source-map-support/register -r ts-node/register -r tsconfig-paths/register --use_strict --exit \"tests/**/*.+(unit|it).+(ts|js)\"",
     "unit": "nyc mocha --recursive -r source-map-support/register -r ts-node/register -r tsconfig-paths/register --use_strict --exit \"tests/**/*.unit.+(ts|js)\""
   },
-  "types": "dist/index.d.ts"
+  "types": "dist/src/index.d.ts"
 }

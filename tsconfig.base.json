@@ -42,7 +42,7 @@
     "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true,
     "moduleResolution": "node",
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "typeRoots": [
       "./node_modules/@types",
       "./types"

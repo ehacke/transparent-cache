@@ -24,7 +24,7 @@ Simple transparent caching for Node. Wrap a function and then call it like norma
 This has a peer-dependency on [ioredis](https://github.com/luin/ioredis)
 
 ```bash
-npm i -S transparent-cache ioredis
+npm i -S @ehacke/transparent-cache ioredis
 ``` 
 
 ## Use
@@ -36,7 +36,7 @@ As you call the function, the result will
 The `redisConfig` option is passed directly to `ioredis` and has the same properties as its [constructor](https://github.com/luin/ioredis/blob/master/API.md#new-redisport-host-options).
 
 ```javascript
-import { TransparentCache } from 'transparent-cache';
+import { TransparentCache } from '@ehacke/transparent-cache';
 
 const transparentCache = new TransparentCache({ redisConfig: { host: 'localhost', port: 6379 } });
 
@@ -102,7 +102,7 @@ interface ConstructorInterface {
 ### Wrap
 
 ```typescript
-import { TransparentCache } from 'transparent-cache';
+import { TransparentCache } from '@ehacke/transparent-cache';
 
 const transparentCache = new TransparentCache({ redisConfig: { host: 'localhost', port: 6379 } });
 
