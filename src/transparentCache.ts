@@ -58,12 +58,12 @@ const validateConfig = (config: InternalConfigInterface) => {
     throw new TypeError('config must be an object');
   }
 
-  if (config?.remote?.ttlMs <= 0) {
-    throw new Error('remote.ttlMs must be gt 0');
+  if (config?.remote?.ttlMs < 0) {
+    throw new Error('remote.ttlMs must be gte 0');
   }
 
-  if (config?.local?.ttlMs <= 0) {
-    throw new Error('local.ttlMs must be gt 0');
+  if (config?.local?.ttlMs < 0) {
+    throw new Error('local.ttlMs must be gte 0');
   }
 
   if (config?.remote?.ttlMs < config?.local?.ttlMs) {

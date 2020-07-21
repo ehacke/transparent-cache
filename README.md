@@ -32,7 +32,7 @@ let result = await wrappedVersion('foo');
 
 // Immediately call again...
 
-// Returns value from local cache for arg 'foo', very fast
+// Returns value from local cache for arg 'foo'
 result = await wrappedVersion('foo'); 
 
 // .... waiting two minutes ....
@@ -46,7 +46,7 @@ result = await wrappedVersion('foo');
 result = await wrappedVersion('foo');
 
 // Clear caches locally and remotely for 'foo'
-// NOTE: This doesn't clear other local caches
+// NOTE: This doesn't clear local caches on other nodes
 await wrappedVersion.delete('foo');
 
 // Hits original again because caches were cleared
