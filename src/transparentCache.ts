@@ -7,7 +7,7 @@ import Logger from './logger';
 import { Remote, RemoteConfigInterface as RemoteCacheConfigInterface } from './caches/remote';
 import { Local } from './caches/local';
 
-const log = Logger('transparentCache');
+const log = Logger('main');
 
 export interface ConfigInterface {
   redis?: Redis;
