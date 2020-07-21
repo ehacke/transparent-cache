@@ -60,7 +60,7 @@
     "dist/**/*.{js,ts,tsbuildinfo}",
     "docs/**/*.*"
   ],
-  "homepage": "https://github.com/ehacke/transparent-cache#readme",
+  "homepage": "https://asserted.io/posts/transparent-caching-wrapper-for-node",
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
