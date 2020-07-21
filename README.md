@@ -31,8 +31,6 @@ npm i -S @ehacke/transparent-cache ioredis
 
 In the most basic case, you can just supply the redis config, and then wrap the function.
 
-As you call the function, the result will 
-
 The `redisConfig` option is passed directly to `ioredis` and has the same properties as its [constructor](https://github.com/luin/ioredis/blob/master/API.md#new-redisport-host-options).
 
 ```javascript
