@@ -42,7 +42,6 @@
     "eslint-import-resolver-typescript": "^2.0.0",
     "eslint-plugin-simple-import-sort": "^5.0.3",
     "fixpack": "^3.0.5",
-    "fs-extra": "^9.0.1",
     "getenv": "^1.0.0",
     "husky": "^4.2.5",
     "ioredis": "^4.17.3",

@@ -1,4 +1,10 @@
 # transparent-cache
+
+![npm](https://img.shields.io/npm/v/@ehacke/transparent-cache)
+![CircleCI](https://img.shields.io/circleci/build/github/ehacke/transparent-cache)
+![GitHub](https://img.shields.io/github/license/ehacke/transparent-cache)
+![Codecov](https://img.shields.io/codecov/c/gh/ehacke/transparent-cache)
+
 Simple transparent caching for Node. Wrap a function and then call it like normal.
 
 ## Features
