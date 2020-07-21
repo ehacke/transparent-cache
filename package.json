@@ -1,7 +1,7 @@
 {
   "name": "@ehacke/transparent-cache",
   "description": "Simple transparent caching for Node. Wrap a function and then call it like normal",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "author": "Eric Hacke",
   "bugs": {
     "url": "https://github.com/ehacke/transparent-cache/issues"
