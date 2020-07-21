@@ -7,6 +7,12 @@
 
 Simple transparent caching for Node. Wrap a function and then call it like normal.
 
+## Sponsor 
+
+![asserted.io](https://raw.githubusercontent.com/ehacke/transparent-cache/master/images/logo.png)
+
+[asserted.io - Test in Prod](https://asserted.io)
+
 ## Features
 
 - The cache is periodically updated in the background without blocking the primary call. So it's always fast.
