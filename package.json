@@ -98,6 +98,7 @@
   "scripts": {
     "beta": "npm version prerelease && npm publish",
     "build": "rm -rf ./dist && tsc -p tsconfig.build.json",
+    "ci-test": "nyc mocha --recursive -r source-map-support/register -r ts-node/register -r tsconfig-paths/register --use_strict --exit \"tests/**/*.+(unit|it).+(ts|js)\"",
     "docker:down": "COMPOSE_PROJECT_NAME=local docker-compose down --remove-orphans",
     "docker:restart": "npm run docker:down && npm run docker:up",
     "docker:up": "COMPOSE_PROJECT_NAME=local docker-compose up -d",

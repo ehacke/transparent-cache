@@ -24,7 +24,7 @@ jobs:
       # run tests!
       - run:
           name: testing
-          command: npm run test
+          command: npm run ci-test
       - run:
           name: coverage
           command: npx codecov
